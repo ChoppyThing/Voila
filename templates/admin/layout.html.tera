@@ -1,0 +1,28 @@
+{% extends "layout" %}
+
+{% block body %}
+	<div class="ui menu">
+		<a href="/" class="header item">
+			<i class="home icon"></i>
+			Accueil
+		</a>
+		<a href="/admin/dashboard" class="item">
+			<i class="hdd outline icon"></i>
+			Tableau de bord
+		</a>
+		<a href="/admin/post" class="item">
+			<i class="paint brush icon"></i>
+			Notes
+		</a>
+		<a href="/admin/category" class="item">
+			<i class="cubes icon"></i>
+			Catégories
+		</a>
+	</div>
+
+	<div class="ui two column centered grid">
+        <div class="column">
+			{% block container %}{% endblock %}
+		</div>
+	</div>
+{% endblock %}

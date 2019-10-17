@@ -1,0 +1,32 @@
+{% extends "admin/layout" %}
+
+{% block container %}
+    <a href="/admin/category/new" class="ui blue basic button">Créer</a>
+
+    <table class="ui table">
+        <thead>
+            <th>#</th>
+            <th>Titre</th>
+            <th>Slug</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+            {% for category in categories.categories %}
+                <tr>
+                    <td>
+                        <a href="/admin/category/{{ category.id }}">{{ category.id }}</a>
+                    </td>
+                    <td>{{ category.name }}</td>
+                    <td>{{ category.slug }}</td>
+                    <td>{{ category.created_at|date(format="%Y-%m-%d") }}</td>
+                    <td>
+                        <a href="/admin/category/{{ category.id }}">
+                            <i class="edit outline icon"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

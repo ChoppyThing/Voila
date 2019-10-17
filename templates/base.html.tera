@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Voilà voilà{% endblock %}</title>
+        {% block meta %}{% endblock %}
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+        {% block scripts %}{% endblock %}
+        {% block trackers %}{% endblock %}
+    </body>
+</html>

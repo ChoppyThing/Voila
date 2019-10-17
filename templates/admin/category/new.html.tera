@@ -1,0 +1,23 @@
+{% extends "admin/layout" %}
+
+{% block container %}
+    <h3>Nouvelle catégorie</h3>
+
+    <form method="post" accept-charset="utf-8"  class="ui form">
+        <div class="field">
+            <label>Nom
+                <input type="text" name="name" />
+            </label>
+        </div>
+
+        <div class="field">
+            <label>Slug
+                <input type="text" name="slug" />
+            </label>
+        </div>
+
+        <a href="/admin/post" class="ui button basic teal">Retour</a>
+        <input type="submit" value="Enregistrer" class="ui button basic blue">
+        <br /><br />
+    </form>
+{% endblock %}

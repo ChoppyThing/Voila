@@ -1,0 +1,34 @@
+{% extends "homepage/layout" %}
+
+{% block container %}
+    {% if cookie.username is defined %}
+        <a class="ui button basic blue" href="/admin/post">Administration</a>
+        <a class="ui button basic blue" href="/logout">Se déconnecter</a>
+    {% else %}
+        <a class="ui button basic blue" href="/login">Se connecter</a>
+    {% endif %}
+    <p>
+        {% if cookie.username is defined %}
+            Logged in with user ID {{ cookie.username }}.
+        {% endif %}
+    </p>
+
+    <br>
+    <br>
+
+    <ul>
+        {% for post in posts.posts.posts %}
+        	<li>{{ post.id }} : {{ post.title }}</li>
+        {% endfor %}
+	</ul>
+
+    <div class="ui pagination menu">
+        {% for page in posts.posts.page_list %}
+            {% if page == 1 %}
+                <a class="item basic blue" href="/">{{ page }}</a>
+            {% else %}
+                <a class="item" href="/page/{{page}}">{{ page }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "admin/layout" %}
+
+{% block container %}
+    <h3>Editer {{ post.title }}</h3>
+
+    <form action="/admin/post/{{ post.id }}" method="post" accept-charset="utf-8"  class="ui form">
+        <div class="field">
+            <label>Titre
+                <input type="text" name="title" value="{{ post.title }}" />
+            </label>
+        </div>
+
+        <div class="field">
+        <label>Poste
+            <textarea name="post">{{ post.note }}</textarea>
+        </label>
+        </div>
+
+        <div class="field">
+            <label>Catégorie
+                <select name="category">
+                    {% for category in categories %}
+                        <option value="{{ category.id }}"{% if category.id == post.category_id %} selected="selected"{% endif %}>
+                            {{ category.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </label>
+        </div>
+
+        <a href="/admin/post" class="ui button basic teal">Retour</a>
+        <input type="submit" value="Enregistrer" class="ui button basic blue">
+        <br /><br />
+    </form>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        //$('#post').trumbowyg();
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/lib/semantic/semantic.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.19.1/ui/trumbowyg.css">
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="/lib/jquery.js"></script>
+    <script type="text/javascript" src="/lib/semantic/semantic.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.19.1/trumbowyg.js"></script>
+{% endblock %}

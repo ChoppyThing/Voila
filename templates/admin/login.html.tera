@@ -1,0 +1,27 @@
+{% extends "layout" %}
+
+{% block body %}
+   <div class="ui two column centered grid">
+      <div class="column">
+         <br><br><br>
+         <h1>Se connecter</h1>
+
+         {% if flash %}
+            <p>{% if flash_type %}{{flash_type}}: {% endif %}{{ flash }}</p>
+         {% endif %}
+
+         <form action="/login" method="post" accept-charset="utf-8" class="ui form">
+            <div class="field">
+               <label for="username">Pseudo</label>
+               <input type="text" name="username" id="username" value="" />
+            </div>
+
+            <div class="field">
+               <label for="password">Mot de passe</label>
+               <input type="password" name="password" id="password" value="" />
+            </div>
+            <p><input class="ui button basic teal" type="submit" value="login"></p>
+         </form>
+      </div>
+   </div>
+{% endblock %}

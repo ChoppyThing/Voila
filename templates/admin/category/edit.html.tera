@@ -1,0 +1,23 @@
+{% extends "admin/layout" %}
+
+{% block container %}
+    <h3>Editer {{ name }}</h3>
+
+    <form action="/admin/category/{{ id }}" method="post" accept-charset="utf-8"  class="ui form">
+        <div class="field">
+            <label>Nom
+                <input type="text" name="name" value="{{ name }}" />
+            </label>
+        </div>
+
+        <div class="field">
+            <label>Slug
+                <input type="text" name="slug" value="{{ slug }}" />
+            </label>
+        </div>
+
+        <a href="/admin/category" class="ui button basic teal">Retour</a>
+        <input type="submit" value="Enregistrer" class="ui button basic blue">
+        <br /><br />
+    </form>
+{% endblock %}

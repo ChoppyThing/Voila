@@ -1,0 +1,41 @@
+{% extends "admin/layout" %}
+
+{% block container %}
+    <a href="/admin/post/new" class="ui blue basic button">Créer</a>
+
+    <table class="ui table">
+        <thead>
+            <th>#</th>
+            <th>Titre</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+            {% for post in posts.posts.posts %}
+                <tr>
+                    <td>
+                        <a href="/admin/post/{{ post.id }}">{{ post.id }}</a>
+                    </td>
+                    <td>{{ post.title }}</td>
+                    <td>{{ post.created_at|date(format="%Y-%m-%d") }}</td>
+                    <td>
+                        <a href="/admin/post/{{ post.id }}">
+                            <i class="edit outline icon"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="ui pagination menu">
+        {% for page in posts.posts.page_list %}
+            {% if page == 1 %}
+                <a class="item basic blue" href="/admin/post">{{ page }}</a>
+            {% else %}
+                <a class="item" href="/admin/post/page/{{page}}">{{ page }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}
+

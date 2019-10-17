@@ -1,0 +1,45 @@
+CREATE TABLE `post` (
+  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  title VARCHAR(511),
+  node TEXT,
+  created_at DATETIME
+);
+
+ALTER TABLE  `post` ADD COLUMN category_id INT;
+
+INSERT INTO `post` (`id`, `title`, `node`, `created_at`) VALUES (NULL, 'Hey 3', 'Hey 3', '2019-10-01 00:00:00'), (NULL, 'Hey 4', 'Hey 4', '2019-10-02 00:00:00')
+, (NULL, 'Hey 5', 'Hey 5', '2019-10-02 00:00:00')
+, (NULL, 'Hey 6', 'Hey 6', '2019-10-02 00:00:00')
+, (NULL, 'Hey 7', 'Hey 7', '2019-10-02 00:00:00')
+, (NULL, 'Hey 8', 'Hey 8', '2019-10-02 00:00:00')
+, (NULL, 'Hey 9', 'Hey 9', '2019-10-02 00:00:00')
+, (NULL, 'Hey 10', 'Hey 10', '2019-10-02 00:00:00')
+, (NULL, 'Hey 11', 'Hey 11', '2019-10-02 00:00:00')
+, (NULL, 'Hey 12', 'Hey 12', '2019-10-02 00:00:00')
+, (NULL, 'Hey 13', 'Hey 13', '2019-10-02 00:00:00')
+, (NULL, 'Hey 14', 'Hey 14', '2019-10-02 00:00:00')
+, (NULL, 'Hey 15', 'Hey 15', '2019-10-02 00:00:00')
+, (NULL, 'Hey 16', 'Hey 16', '2019-10-02 00:00:00')
+, (NULL, 'Hey 17', 'Hey 17', '2019-10-02 00:00:00')
+, (NULL, 'Hey 18', 'Hey 18', '2019-10-02 00:00:00')
+, (NULL, 'Hey 19', 'Hey 19', '2019-10-02 00:00:00')
+, (NULL, 'Hey 20', 'Hey 20', '2019-10-02 00:00:00')
+;
+
+
+CREATE TABLE user (
+	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	username VARCHAR(30) NOT NULL,
+	email VARCHAR(50),
+	password VARCHAR(255),
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+/* 9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08 */
+
+CREATE TABLE category (
+	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	slug VARCHAR(255) NOT NULL,
+	name VARCHAR(255),
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
