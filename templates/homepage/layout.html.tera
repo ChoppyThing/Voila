@@ -1,5 +1,31 @@
 {% extends "layout" %}
 
 {% block body %}
-	{% block container %}{% endblock %}
+	<header>
+		<a href="/">
+			<img class="header" src="/img/title.png"/>
+		</a>
+	</header>
+	<div id="banner">
+		<img src="/img/cropped-DSC_0043-2.jpg"/>
+	</div>
+	
+	<div id="content" class="ui grid stackable doubling">
+		<div class="twelve wide column blog">
+			{% block container %}{% endblock %}
+		</div>
+
+		<div class="four wide column infos me">
+			<h3>My adventures</h3><p>Photos, drawings, ideas</p>
+			<ul>
+				<li>
+					<a href="/category/blah">
+						Blah
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
 {% endblock %}
+
+{% block body_tag %} id="home"{% endblock %}

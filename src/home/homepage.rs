@@ -1,14 +1,24 @@
-use std::collections::HashMap;
-use rocket_contrib::templates::Template;
 use rocket::http::Cookies;
+use rocket::request::Form;
+use std::collections::HashMap;
+use rocket::response::Redirect;
+use rocket_contrib::templates::Template;
 
 use crate::db::post;
+use crate::db::comment;
 use crate::session::session::Session;
+use crate::form::comment::FormInput;
 
 #[derive(Debug, Serialize)]
 struct IndexTemplate<'a, 'b> {
     cookie: &'a HashMap<&'a str, &'b str>,
-    posts: HashMap<&'a str, post::Posts>
+    posts: HashMap<&'a str, post::Posts>,
+}
+
+#[derive(Debug, Serialize)]
+struct PostTemplate {
+    post: post::Post,
+    comments: Vec<comment::Comment>,
 }
 
 #[get("/")]
@@ -42,6 +52,30 @@ fn home(mut _cookies: Cookies, page: i32) -> Template
     };
     // println!("{:#?}", data);
     Template::render("homepage/index", data)
+}
+
+#[get("/note/<id>")]
+pub fn post(id: i32) -> Template {
+    let post: post::Post = post::get_post(id);
+
+    /*println!("{:?}", post);*/
+
+    Template::render("homepage/post", PostTemplate {
+        post: post,
+        comments: comment::Comment::get_by_post(id),
+    })
+}
+
+#[post("/note/<id>", data = "<comment>")]
+pub fn comment(comment: Form<FormInput>, id: i32) -> Result<Redirect, String> {
+    println!("{:?}", &comment);
+    comment::create(comment, id);
+
+    /*let redirect = "/note/".to_string() + &id.to_string();*/
+    let redirect = format!("/note/{}", id);
+
+    /*println!("{:?}", &redirect);*/
+    Ok(Redirect::to(redirect))
 }
 
 #[get("/test")]

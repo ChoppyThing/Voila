@@ -1,0 +1,30 @@
+{% extends "admin/layout" %}
+
+{% block container %}
+    <table class="ui table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Pseudo</th>
+                <th>E-mail</th>
+                <th>Date</th>
+                <th>Text</th>
+                <th>Note</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for comment in comments %}
+                <tr>
+                    <td>{{ comment.id }}</td>
+                    <td>{{ comment.username }}</td>
+                    <td>{{ comment.email }}</td>
+                    <td>{{ comment.created_at|date(format="%Y-%m-%d") }}</td>
+                    <td>{{ comment.text|safe }}</td>
+                    <td>
+                        <a target="__blank" href="/admin/post/{{ comment.post.id }}">{{ comment.post.title }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

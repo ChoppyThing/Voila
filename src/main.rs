@@ -23,8 +23,10 @@ fn main() {
         .mount("/", routes![
             home::homepage::index,
             home::homepage::page,
-            home::homepage::index_test,
+            home::homepage::post,
             home::homepage::world,
+            home::homepage::comment,
+            home::homepage::index_test,
             user::user::login_page,
             user::user::login,
             user::user::logout,
@@ -39,6 +41,8 @@ fn main() {
             admin::category::create,
             admin::category::edit,
             admin::category::update,
+            admin::comment::index,
+            admin::comment::page,
         ])
         .attach(Template::fairing())
         .mount("/", StaticFiles::from("public"))

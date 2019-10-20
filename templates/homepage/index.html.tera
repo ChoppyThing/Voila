@@ -1,12 +1,12 @@
 {% extends "homepage/layout" %}
 
 {% block container %}
-    {% if cookie.username is defined %}
+    {#% if cookie.username is defined %}
         <a class="ui button basic blue" href="/admin/post">Administration</a>
         <a class="ui button basic blue" href="/logout">Se déconnecter</a>
     {% else %}
         <a class="ui button basic blue" href="/login">Se connecter</a>
-    {% endif %}
+    {% endif %#}
     <p>
         {% if cookie.username is defined %}
             Logged in with user ID {{ cookie.username }}.
@@ -16,11 +16,30 @@
     <br>
     <br>
 
-    <ul>
+    {% for post in posts.posts.posts %}
+        <a href="/note/{{ post.id }}">
+            <h1>
+                {{ post.title }}
+            </h1>
+        </a>
+        <div class="info">
+            Posté le {{ post.created_at|date(format="%Y-%m-%d") }}
+            <b>par Choppy</b>
+        </div>
+        <div>
+            {{ post.note|safe }}
+        </div>
+
+        <a href="/note/{{ post.id }}">
+            <p class="note">| En savoir plus |</p>
+        </a>
+    {% endfor %}
+
+    {#<ul>
         {% for post in posts.posts.posts %}
         	<li>{{ post.id }} : {{ post.title }}</li>
         {% endfor %}
-	</ul>
+	</ul>#}
 
     <div class="ui pagination menu">
         {% for page in posts.posts.page_list %}

@@ -5,10 +5,12 @@
 
     <table class="ui table">
         <thead>
-            <th>#</th>
-            <th>Titre</th>
-            <th>Date</th>
-            <th>Actions</th>
+            <tr>
+                <th>#</th>
+                <th>Titre</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
         </thead>
         <tbody>
             {% for post in posts.posts.posts %}

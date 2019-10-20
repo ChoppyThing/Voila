@@ -10,11 +10,11 @@ const PAGE_LIMIT_ADMIN: i32 = 15;
 
 #[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct Post {
-    id: i32,
-    title: String,
-    note: String,
-    category_id: i32,
-    created_at: NaiveDateTime,
+    pub id: i32,
+    pub title: String,
+    pub note: String,
+    pub category_id: i32,
+    pub created_at: NaiveDateTime,
 }
 
 #[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -30,7 +30,6 @@ fn get_posts(mut _page: i32, number: i32) -> Vec<Post> {
 
     _page = _page - 1;
     let page:i32 = _page * number;
-    // let offset: i32 = page + PAGE_LIMIT;
 
     let posts: Vec<Post> =
 	    mysql.prep_exec("SELECT id, title, note, category_id, created_at from post ORDER BY id DESC LIMIT :limit, :offset",
@@ -152,6 +151,7 @@ pub fn admin_posts(page: i32) -> Posts {
 pub fn create(post: Form<FormInput>) -> () {
 	println!("Database post : {:?}", post);
 
+    let datetime = chrono::offset::Local::now();
 	let mysql = database::get_connection();
 	let mut stmt = mysql.prepare(r"INSERT INTO post
 		(title, note, category_id, created_at)
@@ -162,7 +162,7 @@ pub fn create(post: Form<FormInput>) -> () {
         "title" => &post.title,
         "note" => &post.post,
         "category" => &post.category,
-        "created_at" => "2019-10-11",
+        "created_at" => datetime.format("%Y-%m-%d %H:%M:%S").to_string(),
     }).unwrap();
 }
 

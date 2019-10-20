@@ -2,11 +2,11 @@
 <html lang="fr-FR">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Voilà voilà{% endblock %}</title>
+        <title>{% block title %}Le Journal d'un Choppy{% endblock %}</title>
         {% block meta %}{% endblock %}
         {% block stylesheets %}{% endblock %}
     </head>
-    <body>
+    <body{% block body_tag %}{% endblock %}>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
         {% block scripts %}{% endblock %}

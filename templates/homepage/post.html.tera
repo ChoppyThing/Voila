@@ -1,0 +1,43 @@
+{% extends "homepage/layout" %}
+
+{% block container %}
+    Blah
+
+    {{ post.note|safe }}
+
+    <hr/>
+    {% if comments %}
+		<ul>
+			{% for comment in comments %}
+			<li>
+				<p>
+					<b>
+						{{ comment.username }}
+					</b>
+				</p>
+				<p>
+					{{ comment.text }}
+				</p>
+				<hr class="comment"/>
+			</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+
+	<h3>Blablater ?</h3>
+	<form class="ui form comment" action="/note/{{ post.id }}" method="POST">
+		<div class="field">
+			<label for="username">Pseudo</label>
+			<input id="username" type="text" name="username" autofocus/>
+		</div>
+		<div class="field">
+			<label for="email">E-mail</label>
+			<input id="email" type="email" name="email" autofocus/>
+		</div>
+		<div class="field">
+			<label for="text">Blabla </label>
+			<textarea id="text" name="text"></textarea>
+		</div>
+		<button class="ui button basic blue" type="submit">Envoyer</button>
+	</form>
+{% endblock %}

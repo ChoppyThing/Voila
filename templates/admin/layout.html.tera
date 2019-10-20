@@ -18,6 +18,10 @@
 			<i class="cubes icon"></i>
 			Catégories
 		</a>
+		<a href="/admin/comment" class="item">
+			<i class="comments outline icon"></i>
+			Commentaires
+		</a>
 	</div>
 
 	<div class="ui two column centered grid">
