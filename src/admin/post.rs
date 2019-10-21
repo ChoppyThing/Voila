@@ -8,6 +8,11 @@ use crate::db::post;
 use crate::db::category;
 use crate::session::admin::Connected;
 
+enum Status {
+    active,
+    inactive,
+}
+
 #[derive(Debug, Serialize)]
 struct IndexTemplate<'a> {
     posts: HashMap<&'a str, post::Posts>

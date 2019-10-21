@@ -10,6 +10,7 @@
                 <th>Date</th>
                 <th>Text</th>
                 <th>Note</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -22,6 +23,11 @@
                     <td>{{ comment.text|safe }}</td>
                     <td>
                         <a target="__blank" href="/admin/post/{{ comment.post.id }}">{{ comment.post.title }}</a>
+                    </td>
+                    <td>
+                        <a class="ui button basic red" href="/admin/comment/remove/{{ comment.post.id }}">
+                            <i class="close icon"></i>
+                        </a>
                     </td>
                 </tr>
             {% endfor %}

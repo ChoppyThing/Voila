@@ -29,6 +29,15 @@
             </label>
         </div>
 
+        <div class="field">
+            <label>Statut
+                <select name="status">
+                    <option value="active">Actif</option>
+                    <option value="inactive">Inactif</option>
+                </select>
+            </label>
+        </div>
+
         <a href="/admin/post" class="ui button basic teal">Retour</a>
         <input type="submit" class="ui button basic blue" value="Créer">
         <br /><br />

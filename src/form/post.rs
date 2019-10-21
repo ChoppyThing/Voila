@@ -17,5 +17,6 @@ pub enum Categories {
 pub struct FormInput {
     pub title: String,
     pub post: String,
+    pub status: String,
     pub category: i32,
 }

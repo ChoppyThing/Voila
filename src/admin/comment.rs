@@ -1,4 +1,5 @@
 use rocket_contrib::templates::Template;
+use rocket::response::Redirect;
 
 use crate::db::comment;
 use crate::session::admin::Connected;
@@ -25,7 +26,13 @@ fn list(page: i32) -> Template
     let data = ListTemplate {
         comments: comments
     };
-    println!("{:#?}", data);
+    // println!("{:#?}", data);
 
     Template::render("admin/comment/list", data)
+}
+
+#[get("/admin/comment/remove/<comment>")]
+pub fn remove(_connected: Connected, comment: i32) -> Result<Redirect, String> {
+	comment::remove(comment);
+    Ok(Redirect::to("/admin/comment"))
 }

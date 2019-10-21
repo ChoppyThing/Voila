@@ -58,7 +58,7 @@ impl Comment {
 
 	    let comments: Vec<CommentPost> =
 		    mysql.prep_exec("SELECT c.id, c.username, c.email, c.created_at, c.text,
-                p.id, p.title, p.note, p.category_id, p.created_at
+                p.id, p.title, p.note, p.category_id, p.created_at, p.status
                 FROM comment AS c
                 JOIN post AS p ON p.id = c.post_id
                 ORDER BY c.id DESC LIMIT :limit, :offset",
@@ -67,7 +67,7 @@ impl Comment {
 		        result.map(|x| x.unwrap()).map(|row| {
                     let (
                         id, username, email, created_at, text, post_id,
-                        post_title, post_note, post_category, post_created_at
+                        post_title, post_note, post_category, post_created_at, status
                     ) = mysql::from_row(row);
                     CommentPost {
                         id: id,
@@ -82,11 +82,12 @@ impl Comment {
                             note: post_note,
                             category_id: post_category,
                             created_at: post_created_at,
+                            status: status,
                         }
                     }
 		        }).collect()
 		    }).unwrap();
-	    println!("{:#?}", comments);
+	    // println!("{:#?}", comments);
 
 	    return comments;
 	}
@@ -108,5 +109,14 @@ pub fn create(comment: Form<FormInput>, post_id: i32) -> () {
         "text" => &comment.text,
         "post_id" => &post_id,
         "created_at" => datetime.format("%Y-%m-%d %H:%M:%S").to_string(),
+    }).unwrap();
+}
+
+pub fn remove(comment_id: i32) -> () {
+    let mysql = database::get_connection();
+    let mut stmt = mysql.prepare(r"DELETE FROM comment WHERE id = :id").unwrap();
+
+    stmt.execute(params!{
+        "id" => comment_id,
     }).unwrap();
 }

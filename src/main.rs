@@ -46,6 +46,7 @@ fn main() {
             admin::category::update,
             admin::comment::index,
             admin::comment::page,
+            admin::comment::remove,
         ])
         .attach(Template::fairing())
         .mount("/", StaticFiles::from("public"))

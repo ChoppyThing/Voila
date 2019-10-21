@@ -28,6 +28,15 @@
             </label>
         </div>
 
+        <div class="field">
+            <label>Statut
+                <select name="status">
+                    <option value="active"{% if post.status == 'active' %} selected="selected"{% endif %}>Actif</option>
+                    <option value="inactive"{% if post.status == 'inactive' %} selected="selected"{% endif %}>Inactif</option>
+                </select>
+            </label>
+        </div>
+
         <a href="/admin/post" class="ui button basic teal">Retour</a>
         <input type="submit" value="Enregistrer" class="ui button basic blue">
         <br /><br />
