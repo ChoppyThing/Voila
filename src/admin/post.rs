@@ -31,7 +31,7 @@ pub fn page(_connected: Connected, page: i32) -> Template {
 
 fn list(page: i32) -> Template
 {
-    let posts: post::Posts = post::admin_posts(page);
+    let posts: post::Posts = post::admin_posts(page, "".to_string());
     let mut posts_data = HashMap::<&str, post::Posts>::new();
     posts_data.insert("posts", posts);
 

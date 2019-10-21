@@ -12,7 +12,7 @@
 
         <div class="field">
         <label>Poste
-            <textarea name="post">{{ post.note }}</textarea>
+            <textarea name="post" id="post">{{ post.note }}</textarea>
         </label>
         </div>
 
@@ -36,17 +36,18 @@
 
 {% block scripts %}
     <script>
-        //$('#post').trumbowyg();
+        new FroalaEditor('#post');
     </script>
 {% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="/lib/semantic/semantic.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.19.1/ui/trumbowyg.css">
+    <link href='https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/css/froala_editor.pkgd.min.css' rel='stylesheet' type='text/css' />
 {% endblock %}
 
 {% block javascripts %}
     <script type="text/javascript" src="/lib/jquery.js"></script>
     <script type="text/javascript" src="/lib/semantic/semantic.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.19.1/trumbowyg.js"></script>
+    <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/js/froala_editor.pkgd.min.js'></script>
 {% endblock %}
+

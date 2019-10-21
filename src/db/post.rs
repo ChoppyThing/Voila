@@ -25,15 +25,30 @@ pub struct Posts {
     page: i32
 }
 
-fn get_posts(mut _page: i32, number: i32) -> Vec<Post> {
+fn get_posts(mut _page: i32, number: i32, filter: String) -> Vec<Post> {
     let mysql = database::get_connection();
 
     _page = _page - 1;
     let page:i32 = _page * number;
 
+    let mut filter_query = String::new();
+    let mut params: Vec<(String, mysql::Value)>;
+    if filter.is_empty() {
+        filter_query = "".to_string();
+        params = params!("limit" => &page, "offset" => &number);
+    } else {
+        filter_query = "WHERE category.slug = :slug".to_string();
+        params = params!("limit" => &page, "offset" => &number, "slug" => &filter);
+    }
+
+    let query = format!("SELECT post.id, post.title, post.note, post.category_id, post.created_at 
+        from post
+        JOIN category ON post.category_id = category.id
+        {} 
+        ORDER BY id DESC LIMIT :limit, :offset", filter_query);
     let posts: Vec<Post> =
-	    mysql.prep_exec("SELECT id, title, note, category_id, created_at from post ORDER BY id DESC LIMIT :limit, :offset",
-	    	params!{"limit" => page, "offset" => number}
+	    mysql.prep_exec(query,
+	    	params
 	    ).map(|result| {
 	        result.map(|x| x.unwrap()).map(|row| {
 	            let (id, title, note, category_id, created_at) = mysql::from_row(row);
@@ -124,10 +139,10 @@ fn page_list(count: i32, limit: i32) -> Vec<i32> {
     return list;
 }
 
-pub fn posts(mut _page: i32) -> Posts {
+pub fn posts(mut _page: i32, filter: String) -> Posts {
 	let count: i32 = count();
 	let data = Posts {
-		posts: get_posts(_page, PAGE_LIMIT),
+		posts: get_posts(_page, PAGE_LIMIT, filter),
 		count: count,
 		page_list: page_list(count, PAGE_LIMIT),
 		page: _page
@@ -136,10 +151,10 @@ pub fn posts(mut _page: i32) -> Posts {
 	data
 }
 
-pub fn admin_posts(page: i32) -> Posts {
+pub fn admin_posts(page: i32, filter: String) -> Posts {
     let count: i32 = count();
     let data = Posts {
-        posts: get_posts(page, PAGE_LIMIT_ADMIN),
+        posts: get_posts(page, PAGE_LIMIT_ADMIN, filter),
         count: count,
         page_list: page_list(count, PAGE_LIMIT_ADMIN),
         page: page

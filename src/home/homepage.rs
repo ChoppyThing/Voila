@@ -6,6 +6,7 @@ use rocket_contrib::templates::Template;
 
 use crate::db::post;
 use crate::db::comment;
+use crate::db::category;
 use crate::session::session::Session;
 use crate::form::comment::FormInput;
 
@@ -13,26 +14,34 @@ use crate::form::comment::FormInput;
 struct IndexTemplate<'a, 'b> {
     cookie: &'a HashMap<&'a str, &'b str>,
     posts: HashMap<&'a str, post::Posts>,
+    categories: Vec<category::Category>,
 }
 
 #[derive(Debug, Serialize)]
 struct PostTemplate {
     post: post::Post,
     comments: Vec<comment::Comment>,
+    categories: Vec<category::Category>,
 }
 
 #[get("/")]
 pub fn index(_session: Session, cookies: Cookies) -> Template {
     println!("Sessiooooooooooooon : {:?}", _session);
-    home(cookies, 1)
+    home(cookies, 1, "".to_string())
 }
 
 #[get("/page/<page>")]
 pub fn page(_session: Session, cookies: Cookies, page: i32) -> Template {
-    home(cookies, page)
+    home(cookies, page, "".to_string())
 }
 
-fn home(mut _cookies: Cookies, page: i32) -> Template
+#[get("/category/<category>")]
+pub fn category(_session: Session, cookies: Cookies, category: String) -> Template {
+    println!("Sessiooooooooooooon : {:?}", _session);
+    home(cookies, 1, category)
+}
+
+fn home(mut _cookies: Cookies, page: i32, filter: String) -> Template
 {
     let mut context = HashMap::<&str, &str>::new();
     let username = _cookies.get_private("username");
@@ -41,14 +50,15 @@ fn home(mut _cookies: Cookies, page: i32) -> Template
         context.insert("username", username.value());
     }
 
-    let posts: post::Posts = post::posts(page);
+    let posts: post::Posts = post::posts(page, filter);
     let mut posts_data = HashMap::<&str, post::Posts>::new();
     posts_data.insert("posts", posts);
 
 
     let data = IndexTemplate {
         cookie: &context,
-        posts: posts_data
+        posts: posts_data,
+        categories: category::all(),
     };
     // println!("{:#?}", data);
     Template::render("homepage/index", data)
@@ -63,6 +73,7 @@ pub fn post(id: i32) -> Template {
     Template::render("homepage/post", PostTemplate {
         post: post,
         comments: comment::Comment::get_by_post(id),
+        categories: category::all(),
     })
 }
 

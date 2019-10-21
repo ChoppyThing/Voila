@@ -14,6 +14,9 @@
 					<b>
 						{{ comment.username }}
 					</b>
+					<span class="date">
+						le {{ comment.created_at|date(format="%d %b %Y") }}
+					</span>
 				</p>
 				<p>
 					{{ comment.text }}

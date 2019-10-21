@@ -18,11 +18,13 @@
 		<div class="four wide column infos me">
 			<h3>My adventures</h3><p>Photos, drawings, ideas</p>
 			<ul>
-				<li>
-					<a href="/category/blah">
-						Blah
-					</a>
-				</li>
+				{% for category in categories %}
+					<li>
+						<a href="/category/{{ category.slug }}">
+							{{ category.name }}
+						</a>
+					</li>
+				{% endfor %}
 			</ul>
 		</div>
 	</div>

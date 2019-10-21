@@ -80,3 +80,8 @@
 #home #content img {
     cursor: pointer;
 }
+
+#home #content ul span.date {
+    font-size: 12px;
+    color: #aac0d4;
+}
