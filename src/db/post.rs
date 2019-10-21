@@ -95,7 +95,7 @@ pub fn get_post(id: i32) -> Post {
         params!{"id" => id}).unwrap() {
 
         let (id, title, note, category_id, created_at, status) = mysql::from_row(row.unwrap());
-        // println!("{:?}", row);
+
         return Post {
             id: id,
             title: title,
@@ -127,23 +127,6 @@ fn count() -> i32 {
 
     0
 }
-
-
-/*fn page_list(count: i32, limit: i32) -> Vec<i32> {
-    let mut i = 1;
-    let mut list = Vec::<i32>::new();
-
-    loop {
-    	list.push(i);
-    	if i == count / limit {
-    		break;
-    	} else {
-    		i = i + 1;
-    	}
-    }
-
-    return list;
-}*/
 
 fn page_list(count: i32, limit: i32) -> Vec<i32> {
     let mut i = 1;
@@ -188,8 +171,6 @@ pub fn admin_posts(page: i32, filter: String) -> Posts {
 }
 
 pub fn create(post: Form<FormInput>) -> () {
-	println!("Database post : {:?}", post);
-
     let datetime = chrono::offset::Local::now();
 	let mysql = database::get_connection();
 	let mut stmt = mysql.prepare(r"INSERT INTO post
@@ -207,8 +188,6 @@ pub fn create(post: Form<FormInput>) -> () {
 }
 
 pub fn update(post: Form<FormInput>, id: i32) -> () {
-    println!("Database post : {:?}", post);
-
     let mysql = database::get_connection();
     let mut stmt = mysql.prepare(r"UPDATE post
         SET title = :title, note = :note, category_id = :category, status = :status
