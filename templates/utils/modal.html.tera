@@ -1,0 +1,25 @@
+<div class="ui basic modal image">
+    <div class="ui icon header"></div>
+    <div class="content">
+        <p>
+            <img src="#">
+        </p>
+    </div>
+    <div class="actions"></div>
+</div>
+
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(event) {
+        $(function() {
+            $('#content .blog img').click(function() {
+                console.log($(this));
+                // console.log($('.modal.image img').src());
+                $('.modal.image img').attr('src', $(this).attr('src'));
+
+                $('.ui.basic.modal.image')
+                  .modal('show')
+                ;
+            });
+        });
+    });
+</script>

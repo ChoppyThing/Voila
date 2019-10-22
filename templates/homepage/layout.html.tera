@@ -28,6 +28,8 @@
 			</ul>
 		</div>
 	</div>
+
+    {% include 'utils/modal' %}
 {% endblock %}
 
 {% block body_tag %} id="home"{% endblock %}
